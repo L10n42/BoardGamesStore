@@ -1,0 +1,29 @@
+﻿@model IEnumerable<BoardGamesStore.Models.BoardGame>
+
+@{
+    ViewData["Title"] = "Board Games";
+}
+
+<h2>Board Games</h2>
+
+<a asp-action="Create" class="btn btn-primary">Add New Board Game</a>
+
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var game in Model)
+        {
+            <div class="col-md-3">
+                <a asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
+                    <div class="card mb-4">
+                        <img src="@game.BoardGameImages?.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="@game.Name" style="height: 200px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@game.Name</h5>
+                            <p class="card-text text-success">@game.Price.ToString("0.00$")</p>
+                            <a href="#" class="btn btn-warning">Додати до кошика</a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

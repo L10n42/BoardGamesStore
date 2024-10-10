@@ -1,0 +1,50 @@
+﻿@model BoardGamesStore.Models.BoardGame
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<<h2 class="mb-4">Create new Board Game</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" placeholder=" " />
+        <label asp-for="Name" class="form-label">Ім'я</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea asp-for="Description" class="form-control" placeholder=" "></textarea>
+        <label asp-for="Description">Опис</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" asp-for="Price" class="form-control" step="0.01" placeholder=" " />
+        <label asp-for="Price">Ціна</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="StockQuantity" class="form-control" placeholder=" " />
+        <label asp-for="StockQuantity">Кількість в наявності</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="NumberOfPlayers" class="form-control" placeholder="" />
+        <label asp-for="NumberOfPlayers">Кількість гравців</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="GameTimeMinutes" class="form-control" placeholder=" " />
+        <label asp-for="GameTimeMinutes">Тривалість гри (хвилини)</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="SuggestedAge" class="form-control" placeholder=" " />
+        <label asp-for="SuggestedAge">Рекомендований вік</label>
+    </div>
+    <div class="form-floating mb-4">
+        <select asp-for="CategoryID" class="form-control" placeholder=" " asp-items="ViewBag.Categories"></select>
+        <label asp-for="CategoryID">Категорія</label>
+    </div>
+
+    <div class="form-group mb-4">
+        <label for="images" class="form-label">Зображення</label>
+        <input type="file" class="form-control" name="images" multiple />
+    </div>
+
+    <input type="submit" value="Зберегти" class="btn btn-primary mb-3" />
+    <a asp-action="Index" class="btn btn-secondary  mb-3">Скасувати</a>
+</form>
