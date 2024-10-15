@@ -22,10 +22,11 @@ namespace BoardGamesStore.Controllers
         // GET: BoardGames
         public async Task<IActionResult> Index()
         {
-            var boardGamesStoreContext = _context.BoardGames
+            var boardGames = await _context.BoardGames
                 .Include(b => b.Category)
-                .Include(bg => bg.BoardGameImages);
-            return View(await boardGamesStoreContext.ToListAsync());
+                .Include(bg => bg.BoardGameImages)
+                .ToListAsync();
+            return View(boardGames);
         }
 
         // GET: BoardGames/Details/5
@@ -38,6 +39,7 @@ namespace BoardGamesStore.Controllers
 
             var boardGame = await _context.BoardGames
                 .Include(b => b.Category)
+                .Include(bg => bg.BoardGameImages)
                 .FirstOrDefaultAsync(m => m.BoardGameID == id);
             if (boardGame == null)
             {
@@ -50,7 +52,7 @@ namespace BoardGamesStore.Controllers
         // GET: BoardGames/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
+            ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
             return View();
         }
 
@@ -82,8 +84,24 @@ namespace BoardGamesStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
+            ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
             return View(boardGame);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var boardGames = await _context.BoardGames
+                .Include(b => b.Category)
+                .Include(bg => bg.BoardGameImages)
+                .ToListAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: BoardGames/Edit/5
@@ -99,7 +117,7 @@ namespace BoardGamesStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
+            ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
             return View(boardGame);
         }
 
@@ -135,7 +153,7 @@ namespace BoardGamesStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
+            ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
             return View(boardGame);
         }
 

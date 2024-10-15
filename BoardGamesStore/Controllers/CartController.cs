@@ -10,11 +10,11 @@ using BoardGamesStore.Models;
 
 namespace BoardGamesStore.Controllers
 {
-    public class CartBoardGamesController : Controller
+    public class CartController : Controller
     {
         private readonly BoardGamesStoreContext _context;
 
-        public CartBoardGamesController(BoardGamesStoreContext context)
+        public CartController(BoardGamesStoreContext context)
         {
             _context = context;
         }

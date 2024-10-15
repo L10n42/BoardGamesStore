@@ -1,5 +1,9 @@
+:root {
+    --bs-primary: chocolate;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -9,14 +13,92 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem chocolate;
+}
+
+.form-control, .form-control:focus, .form-control:active {
+    background-color: antiquewhite;
+    border-color: lightsalmon;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-data-input {
+
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+}
+
+header {
+    background-color: sandybrown;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    min-height: 64px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: burlywood;
+    color: #333;
+    font-weight: 500;
+    border-top: 1px solid lightsalmon;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-nav .nav-link {
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #000;
+}
+
+.navbar {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    border-color: chocolate;
+    border-width: 2px;
+    font-weight: 500;
+    background-color: chocolate;
+}
+
+.btn-primary:hover {
+    border-color: saddlebrown;
+    background-color: saddlebrown;
+}
+
+.btn-outline-primary {
+    border-width: 2px;
+    font-weight: 500;
+    border-color: chocolate;
+    color: chocolate
+}
+
+.btn-outline-primary:hover {
+    border-color: saddlebrown;
+    background-color: saddlebrown;
 }

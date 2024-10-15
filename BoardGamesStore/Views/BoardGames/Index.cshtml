@@ -13,16 +13,18 @@
         @foreach (var game in Model)
         {
             <div class="col-md-3">
-                <a asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
-                    <div class="card mb-4">
-                        <img src="@game.BoardGameImages?.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="@game.Name" style="height: 200px; object-fit: cover;">
-                        <div class="card-body text-center">
+                <div class="card game-card" style="width: 18rem;">
+                    <a asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
+                        <img src="@game.BoardGameImages?.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="Board Game Image">
+                        <div class="card-body">
                             <h5 class="card-title">@game.Name</h5>
-                            <p class="card-text text-success">@game.Price.ToString("0.00$")</p>
-                            <a href="#" class="btn btn-warning">Додати до кошика</a>
+                            <p class="card-price">@game.Price.ToString("0.00$")</p>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                    <form asp-action="AddToCart" asp-controller="BoardGames" asp-route-id="@game.BoardGameID" method="post" style="text-align: center">
+                        <button type="submit" class="btn btn-primary btn-cart">Додати до кошика</button>
+                    </form>
+                </div>
             </div>
         }
     </div>
