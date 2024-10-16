@@ -33,6 +33,28 @@
                     </button>
                 }
             </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h3>Description</h3>
+                    <p><strong>@Model.Description</strong></p>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th scope="row">Players</th>
+                            <td>@Model.NumberOfPlayers</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Playtime</th>
+                            <td>@Model.GameTimeMinutes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Suggested Age</th>
+                            <td>@Model.SuggestedAge</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-5">
@@ -50,34 +72,19 @@
                 <button class="btn btn-primary btn-lg" @(Model.StockQuantity == 0 ? "disabled" : "")>Купити</button>
                 <button class="btn btn-outline-primary btn-lg" @(Model.StockQuantity == 0 ? "disabled" : "")>Додати в кошик</button>
             </div>
-        </div>
-    </div>
 
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h3>Description</h3>
-            <p>@Model.Description</p>
-
-            <table class="table">
-                <tr>
-                    <th>Players</th>
-                    <td>@Model.NumberOfPlayers</td>
-                </tr>
-                <tr>
-                    <th>Playtime</th>
-                    <td>@Model.GameTimeMinutes</td>
-                </tr>
-                <tr>
-                    <th>Suggested Age</th>
-                    <td>@Model.SuggestedAge</td>
-                </tr>
-            </table>
+            @if (User.IsInRole("Admin"))
+            {
+                <br>
+                <div class="row g-2">
+                    <div class="col">
+                        <a asp-action="Edit" asp-route-id="@Model?.BoardGameID" class="btn btn-warning w-100">Edit</a>
+                    </div>
+                    <div class="col">
+                        <a asp-action="Delete" asp-route-id="@Model?.BoardGameID" class="btn btn-danger w-100">Delete</a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
-
-@* <div>
-    <a asp-action="Edit" asp-route-id="@Model?.BoardGameID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
- *@

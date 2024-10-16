@@ -2,73 +2,72 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h2 class="mb-4 mt-2">Edit the Board Game</h2>
 
-<h4>BoardGame</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BoardGameID" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StockQuantity" class="control-label"></label>
-                <input asp-for="StockQuantity" class="form-control" />
-                <span asp-validation-for="StockQuantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfPlayers" class="control-label"></label>
-                <input asp-for="NumberOfPlayers" class="form-control" />
-                <span asp-validation-for="NumberOfPlayers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GameTimeMinutes" class="control-label"></label>
-                <input asp-for="GameTimeMinutes" class="form-control" />
-                <span asp-validation-for="GameTimeMinutes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuggestedAge" class="control-label"></label>
-                <input asp-for="SuggestedAge" class="form-control" />
-                <span asp-validation-for="SuggestedAge" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryID" class="control-label"></label>
-                <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.CategoryID"></select>
-                <span asp-validation-for="CategoryID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="BoardGameID" />
+    <div class="form-floating mb-3">
+        <input asp-for="Name" class="form-control" placeholder=" " />
+        <label asp-for="Name" class="form-label">Ім'я</label>
     </div>
-</div>
+    <div class="form-floating mb-3">
+        <textarea asp-for="Description" class="form-control" placeholder=" "></textarea>
+        <label asp-for="Description">Опис</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" asp-for="Price" class="form-control" step="0.01" placeholder=" " />
+        <label asp-for="Price">Ціна</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="StockQuantity" class="form-control" placeholder=" " />
+        <label asp-for="StockQuantity">Кількість в наявності</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="NumberOfPlayers" class="form-control" placeholder="" />
+        <label asp-for="NumberOfPlayers">Кількість гравців</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="GameTimeMinutes" class="form-control" placeholder=" " />
+        <label asp-for="GameTimeMinutes">Тривалість гри (хвилини)</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="SuggestedAge" class="form-control" placeholder=" " />
+        <label asp-for="SuggestedAge">Рекомендований вік</label>
+    </div>
+    <div class="form-floating mb-4">
+        <select asp-for="CategoryID" class="form-control" placeholder=" " asp-items="ViewBag.Categories"></select>
+        <label asp-for="CategoryID">Категорія</label>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="form-group mb-4">
+        <label class="form-label">Наявні зображення</label>
+        @if (Model.BoardGameImages != null && Model.BoardGameImages.Any())
+        {
+            <div class="row">
+                @foreach (var image in Model.BoardGameImages)
+                {
+                    <div class="col-md-3">
+                        <img src="@image.ImageUrl" alt="Board Game Image" class="img-thumbnail" />
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="existingImageIds" value="@image.BoardGameImageID" checked />
+                            <label class="form-check-label">Залишити</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="form-group mb-4">
+        <label for="images" class="form-label">Завантажити нові зображення</label>
+        <input type="file" class="form-control" name="images" multiple />
+    </div>
+
+    <input type="submit" value="Зберегти" class="btn btn-primary mb-3" />
+    <a asp-action="Index" class="btn btn-secondary  mb-3">Скасувати</a>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

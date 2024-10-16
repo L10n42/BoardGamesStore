@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BoardGamesStore.Data;
@@ -19,7 +15,6 @@ namespace BoardGamesStore.Controllers
             _context = context;
         }
 
-        // GET: BoardGames
         public async Task<IActionResult> Index()
         {
             var boardGames = await _context.BoardGames
@@ -29,7 +24,6 @@ namespace BoardGamesStore.Controllers
             return View(boardGames);
         }
 
-        // GET: BoardGames/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,16 +43,12 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
-        // GET: BoardGames/Create
         public IActionResult Create()
         {
             ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
             return View();
         }
 
-        // POST: BoardGames/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BoardGameID,Name,Description,Price,StockQuantity,CreatedAt,NumberOfPlayers,GameTimeMinutes,SuggestedAge,CategoryID")] BoardGame boardGame, List<IFormFile> images)
@@ -103,8 +93,6 @@ namespace BoardGamesStore.Controllers
                 .ToListAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        // GET: BoardGames/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -112,7 +100,7 @@ namespace BoardGamesStore.Controllers
                 return NotFound();
             }
 
-            var boardGame = await _context.BoardGames.FindAsync(id);
+            var boardGame = await _context.BoardGames.Include(b => b.BoardGameImages).FirstOrDefaultAsync(b => b.BoardGameID == id);
             if (boardGame == null)
             {
                 return NotFound();
@@ -121,12 +109,13 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
-        // POST: BoardGames/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BoardGameID,Name,Description,Price,StockQuantity,CreatedAt,NumberOfPlayers,GameTimeMinutes,SuggestedAge,CategoryID")] BoardGame boardGame)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("BoardGameID,Name,Description,Price,StockQuantity,CreatedAt,NumberOfPlayers,GameTimeMinutes,SuggestedAge,CategoryID")] BoardGame boardGame,
+            List<IFormFile> images,
+            List<int> existingImageIds)
         {
             if (id != boardGame.BoardGameID)
             {
@@ -138,62 +127,89 @@ namespace BoardGamesStore.Controllers
                 try
                 {
                     _context.Update(boardGame);
+
+                    await DeleteImages(existingImageIds, boardGame.BoardGameID);
+
+                    if (images != null && images.Count > 0)
+                    {
+                        var imageUrls = await UploadImages(images);
+                        foreach (var imageUrl in imageUrls)
+                        {
+                            var boardGameImage = new BoardGameImage
+                            {
+                                ImageUrl = imageUrl,
+                                BoardGameID = boardGame.BoardGameID
+                            };
+                            _context.BoardGameImages.Add(boardGameImage);
+                        }
+                    }
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
-                    if (!BoardGameExists(boardGame.BoardGameID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!BoardGameExists(boardGame.BoardGameID)) return NotFound(); else throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", boardGame.CategoryID);
             return View(boardGame);
         }
 
-        // GET: BoardGames/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var boardGame = await _context.BoardGames
                 .Include(b => b.Category)
+                .Include(b => b.BoardGameImages)
                 .FirstOrDefaultAsync(m => m.BoardGameID == id);
-            if (boardGame == null)
-            {
-                return NotFound();
-            }
+
+            if (boardGame == null) return NotFound();
 
             return View(boardGame);
         }
 
-        // POST: BoardGames/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var boardGame = await _context.BoardGames.FindAsync(id);
+            var boardGame = await _context.BoardGames
+                .Include(b => b.BoardGameImages)
+                .FirstOrDefaultAsync(m => m.BoardGameID == id);
+
             if (boardGame != null)
             {
+                await DeleteImages(boardGame.BoardGameImages.Select(i => i.BoardGameImageID).ToList(), boardGame.BoardGameID);
+
                 _context.BoardGames.Remove(boardGame);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BoardGameExists(int id)
         {
             return _context.BoardGames.Any(e => e.BoardGameID == id);
+        }
+
+        private async Task DeleteImages(List<int> existingImageIds, int boardGameId)
+        {
+            var currentImages = await _context.BoardGameImages.Where(img => img.BoardGameID == boardGameId).ToListAsync();
+            var imagesToDelete = currentImages.Where(img => !existingImageIds.Contains(img.BoardGameImageID)).ToList();
+
+            foreach (var imgToDelete in imagesToDelete)
+            {
+                _context.BoardGameImages.Remove(imgToDelete);
+
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imgToDelete.ImageUrl.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
         }
 
         private async Task<List<string>> UploadImages(List<IFormFile> imageFiles)
