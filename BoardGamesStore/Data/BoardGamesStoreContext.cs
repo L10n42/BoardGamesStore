@@ -1,8 +1,8 @@
-﻿using BoardGamesStore.Areas.Identity.Data;
-using BoardGamesStore.Models;
+﻿using BoardGamesStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace BoardGamesStore.Data;
 
@@ -25,6 +25,11 @@ public class BoardGamesStoreContext : IdentityDbContext<ApplicationUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<Category>()
+            .HasMany(c => c.BoardGames)
+            .WithOne(b => b.Category)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.Entity<OrderDetail>()
             .HasKey(od => new { od.OrderID, od.BoardGameID });

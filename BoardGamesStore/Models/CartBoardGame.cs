@@ -1,6 +1,4 @@
-﻿using BoardGamesStore.Areas.Identity.Data;
-
-namespace BoardGamesStore.Models
+﻿namespace BoardGamesStore.Models
 {
     public class CartBoardGame
     {

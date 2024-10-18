@@ -12,15 +12,30 @@ html {
   }
 }
 
-.btn-primary:focus, .btn-outline-primary:focus, .btn-primary:active:focus, .btn-outline-primary:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn-primary:focus, .btn-outline-primary:focus, .btn-primary:active:focus, .btn-outline-primary:active:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem chocolate;
 }
 
-.form-control, .form-control:focus, .form-control:active {
+.form-control, .form-control:focus, .form-control:active, .form-control:active:focus {
     background-color: antiquewhite;
     border-color: lightsalmon;
     color: #333;
     font-weight: 500;
+}
+
+.form-check-input {
+    border-color: chocolate;
+    background-color: antiquewhite;
+}
+
+.form-check-input:focus {
+    border-color: chocolate;
+    background-color: antiquewhite;
+}
+
+.form-check-input:checked {
+    background-color: chocolate;
+    border-color: chocolate;
 }
 
 table.table-bordered {
@@ -52,11 +67,14 @@ footer {
     margin-top: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
     background-color: burlywood;
     color: #333;
     font-weight: 500;
     border-top: 1px solid lightsalmon;
+}
+
+.navbar {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
@@ -65,18 +83,19 @@ footer {
     color: #333;
 }
 
-.navbar-nav .nav-link {
-    color: #333;
+.nav-link {
+    color: #333 !important;
     font-weight: 500;
-    padding: 0.5rem 1rem;
 }
 
-.navbar-nav .nav-link:hover {
-    color: #000;
+.nav-link:hover {
+    color: chocolate !important;
 }
 
-.navbar {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.nav-text {
+    color: #333 !important;
+    font-weight: 500;
+    margin: auto;
 }
 
 .btn-primary {
@@ -101,4 +120,46 @@ footer {
 .btn-outline-primary:hover {
     border-color: saddlebrown;
     background-color: saddlebrown;
+}
+
+.text-button {
+    background: none;
+    border: none;
+    color: #333;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.text-button:hover {
+    color: chocolate;
+}
+
+
+.table-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid lightsalmon;
+}
+
+.items-table {
+    border-collapse: collapse;
+}
+
+.items-table thead {
+    background-color: lightsalmon;
+}
+
+.items-table tbody tr {
+    border-bottom: 1px solid lightsalmon;
+}
+
+.items-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.items-table td, .items-table th {
+    padding: 8px 12px;
+    vertical-align: middle;
 }

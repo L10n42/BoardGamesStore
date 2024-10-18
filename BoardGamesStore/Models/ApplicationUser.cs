@@ -1,7 +1,6 @@
-﻿using BoardGamesStore.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace BoardGamesStore.Areas.Identity.Data;
+namespace BoardGamesStore.Models;
 
 public class ApplicationUser : IdentityUser
 {

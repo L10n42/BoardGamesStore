@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BoardGamesStore.Data;
-using BoardGamesStore.Areas.Identity.Data;
+using BoardGamesStore.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BoardGamesStoreContextConnection") ?? throw new InvalidOperationException("Connection string 'BoardGamesStoreContextConnection' not found.");
 
@@ -20,15 +20,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-    try
-    {
-        await SeedData.SeedRolesAndAdminAsync(roleManager, userManager);
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
-    }
+    await SeedData.SeedRolesAndAdminAsync(roleManager, userManager);
 }
 
 if (!app.Environment.IsDevelopment())
@@ -43,6 +35,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

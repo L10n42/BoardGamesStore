@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BoardGamesStore.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5">
+    <h2 class="mb-0">Categories</h2>
+    <a asp-action="Create" class="btn btn-primary">Add Category</a>
+</div>
+
+<div class="table-wrapper  mt-4">
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th class="w-100">
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => category.CategoryName)
+                    </td>
+                    <td class="d-flex align-items-center">
+                        <a class="btn btn-warning me-2" asp-action="Edit" asp-route-id="@category.CategoryID">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@category.CategoryID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

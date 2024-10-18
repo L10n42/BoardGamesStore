@@ -1,5 +1,4 @@
-﻿using BoardGamesStore.Areas.Identity.Data;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BoardGamesStore.Models
 {

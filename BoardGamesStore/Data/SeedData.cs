@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BoardGamesStore.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace BoardGamesStore.Areas.Identity.Data
+namespace BoardGamesStore.Data
 {
     public class SeedData
     {
