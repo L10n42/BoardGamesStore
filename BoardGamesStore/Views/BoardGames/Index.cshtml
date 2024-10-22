@@ -1,16 +1,52 @@
-﻿@model IEnumerable<BoardGamesStore.Models.BoardGame>
+﻿@model BoardGamesStore.ViewModels.BoardGamesViewModel
 
 @{
     ViewData["Title"] = "Board Games";
 }
 
-<h2>Board Games</h2>
+<div class="search-bar col-md-6 mx-auto mb-5 mt-5">
+    <div class="input-group d-flex align-items-center">
+        <i class="fas fa-search search-bar-icon"></i>
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control search-input" placeholder="Search..." onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
+        <button class="btn btn-primary search-btn" type="submit" onclick="this.form.submit()">Search</button>
+    </div>
+</div>
 
-<a asp-action="Create" class="btn btn-primary">Add New Board Game</a>
+<form asp-action="Index" method="get">
+    <div class="row g-3 mb-4 align-items-end">
+        <div class="col-md-2">
+            <select name="CategoryID" class="form-select" onchange="this.form.submit()" asp-items="ViewBag.Categories">
+                <option value="">All Categories</option>
+            </select>
+        </div>
 
-<div class="container mt-5">
+        <div class="col-md-2">
+            <input type="number" name="MinPrice" value="@Model.MinPrice" class="form-control" placeholder="Min Price" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
+        </div>
+
+        <div class="col-md-2">
+            <input type="number" name="MaxPrice" value="@Model.MaxPrice" class="form-control" placeholder="Max Price" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
+        </div>
+
+        <div class="col-md-2">
+            <select name="SortBy" class="form-select" onchange="this.form.submit()" asp-items="ViewBag.SortOptions"></select>
+        </div>
+
+        <div class="col-md-2">
+            <select name="SortOrder" class="form-select" onchange="this.form.submit()" asp-items="ViewBag.SortOrderOptions"></select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<div class="container mt-4">
     <div class="row">
-        @foreach (var game in Model)
+        @foreach (var game in Model.BoardGames)
         {
             <div class="col-md-3">
                 <div class="card game-card" style="width: 18rem;">
@@ -29,3 +65,5 @@
         }
     </div>
 </div>
+
+<a asp-action="Create" class="btn btn-primary mb-4 mt-4">Add New Board Game</a>

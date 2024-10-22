@@ -1,0 +1,30 @@
+﻿.search-bar {
+    border-radius: 50px;
+    overflow: hidden;
+    padding: 8px 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid lightsalmon;
+    transition: all 0.3s ease;
+    background-color: antiquewhite;
+}
+
+.search-bar:hover {
+    border-color: chocolate;
+    box-shadow: 0 0 8px rgba(210, 105, 30, 0.5);
+}
+
+.search-input {
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    padding-left: 1rem;
+}
+
+.search-bar-icon {
+    color: #333;
+    padding-left: 1rem;
+}
+
+.search-btn {
+    border-radius: 25px;
+}
