@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BoardGamesStore.Data;
 using BoardGamesStore.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using BoardGamesStore.ViewModels;
 
 namespace BoardGamesStore.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly BoardGamesStoreContext _context;
@@ -19,152 +23,68 @@ namespace BoardGamesStore.Controllers
             _context = context;
         }
 
-        // GET: CartBoardGames
         public async Task<IActionResult> Index()
         {
-            var boardGamesStoreContext = _context.ShoppingCarts.Include(c => c.BoardGame).Include(c => c.User);
-            return View(await boardGamesStoreContext.ToListAsync());
-        }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        // GET: CartBoardGames/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var cartBoardGame = await _context.ShoppingCarts
+            var cartItems = await _context.ShoppingCarts
                 .Include(c => c.BoardGame)
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.UserID == id);
-            if (cartBoardGame == null)
+                .Where(c => c.UserID == userId)
+                .ToListAsync();
+
+            var viewModel = new CartViewModel
             {
-                return NotFound();
-            }
+                Items = cartItems,
+                TotalPrice = cartItems.Sum(i => i.BoardGame.Price * i.Quantity),
+                TotalItems = cartItems.Sum(i => i.Quantity)
+            };
 
-            return View(cartBoardGame);
+            return View(viewModel);
         }
 
-        // GET: CartBoardGames/Create
-        public IActionResult Create()
-        {
-            ViewData["BoardGameID"] = new SelectList(_context.BoardGames, "BoardGameID", "BoardGameID");
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
-        }
-
-        // POST: CartBoardGames/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserID,BoardGameID,Quantity")] CartBoardGame cartBoardGame)
+        public async Task<IActionResult> AddToCart(int id, string returnUrl)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(cartBoardGame);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BoardGameID"] = new SelectList(_context.BoardGames, "BoardGameID", "BoardGameID", cartBoardGame.BoardGameID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", cartBoardGame.UserID);
-            return View(cartBoardGame);
-        }
 
-        // GET: CartBoardGames/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var boardGame = await _context.BoardGames.FindAsync(id);
+            if (boardGame == null)
             {
                 return NotFound();
             }
 
-            var cartBoardGame = await _context.ShoppingCarts.FindAsync(id);
-            if (cartBoardGame == null)
-            {
-                return NotFound();
-            }
-            ViewData["BoardGameID"] = new SelectList(_context.BoardGames, "BoardGameID", "BoardGameID", cartBoardGame.BoardGameID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", cartBoardGame.UserID);
-            return View(cartBoardGame);
-        }
+            var cartItem = await _context.ShoppingCarts.FirstOrDefaultAsync(c => c.UserID == userId && c.BoardGameID == id);
 
-        // POST: CartBoardGames/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserID,BoardGameID,Quantity")] CartBoardGame cartBoardGame)
-        {
-            if (id != cartBoardGame.UserID)
+            if (cartItem != null)
             {
-                return NotFound();
+                cartItem.Quantity += 1;
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
+                cartItem = new CartBoardGame
                 {
-                    _context.Update(cartBoardGame);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CartBoardGameExists(cartBoardGame.UserID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BoardGameID"] = new SelectList(_context.BoardGames, "BoardGameID", "BoardGameID", cartBoardGame.BoardGameID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", cartBoardGame.UserID);
-            return View(cartBoardGame);
-        }
-
-        // GET: CartBoardGames/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var cartBoardGame = await _context.ShoppingCarts
-                .Include(c => c.BoardGame)
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.UserID == id);
-            if (cartBoardGame == null)
-            {
-                return NotFound();
-            }
-
-            return View(cartBoardGame);
-        }
-
-        // POST: CartBoardGames/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var cartBoardGame = await _context.ShoppingCarts.FindAsync(id);
-            if (cartBoardGame != null)
-            {
-                _context.ShoppingCarts.Remove(cartBoardGame);
+                    UserID = userId,
+                    BoardGameID = id,
+                    Quantity = 1
+                };
+                _context.ShoppingCarts.Add(cartItem);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+
+            return RedirectToAction("Index", "BoardGames");
         }
 
-        private bool CartBoardGameExists(string id)
-        {
-            return _context.ShoppingCarts.Any(e => e.UserID == id);
-        }
     }
 }

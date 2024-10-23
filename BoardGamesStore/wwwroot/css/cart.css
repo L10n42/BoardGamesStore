@@ -1,0 +1,11 @@
+﻿.cart-badge {
+    top: -6px;
+    right: -16px;
+    font-size: 12px;
+    position: absolute;
+    color: white;
+}
+
+.fas.fa-shopping-cart {
+    font-size: 1.2rem;
+}

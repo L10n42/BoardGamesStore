@@ -1,10 +1,11 @@
 ﻿using BoardGamesStore.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BoardGamesStore.ViewModels
 {
     public class BoardGamesViewModel
     {
-        public IEnumerable<BoardGame> BoardGames { get; set; }
+        public IEnumerable<BoardGame> BoardGames { get; set; } = Enumerable.Empty<BoardGame>();
 
 
         public string SearchQuery { get; set; } = string.Empty;
@@ -17,6 +18,9 @@ namespace BoardGamesStore.ViewModels
         public string SortOrder { get; set; } = "asc";
 
 
-        public IEnumerable<Category> Categories { get; set; }
+        public SelectList Categories { get; set; }
+        public SelectList SortOptions { get; set; }
+        public SelectList SortOrderOptions { get; set; }
+
     }
 }

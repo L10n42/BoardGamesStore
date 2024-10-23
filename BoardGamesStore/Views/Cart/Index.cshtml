@@ -1,48 +1,32 @@
-﻿@model IEnumerable<BoardGamesStore.Models.CartBoardGame>
+﻿@model BoardGamesStore.ViewModels.CartViewModel
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Cart";
 }
 
-<h1>Index</h1>
+<h2>Your Cart</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BoardGame)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th></th>
+            <th>Game</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BoardGame.BoardGameID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.BoardGame.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.BoardGame.Price.ToString("0.00$")</td>
+                <td>@(item.BoardGame.Price * item.Quantity).ToString("0.00$")</td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<p>Total Items: @Model.TotalItems</p>
+<p>Total Price: @Model.TotalPrice.ToString("0.00$")</p>

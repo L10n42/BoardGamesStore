@@ -20,19 +20,18 @@ namespace BoardGamesStore.Controllers
 
         public async Task<IActionResult> Index(BoardGamesViewModel viewModel)
         {
-            var query = _context.BoardGames
+            IQueryable<BoardGame> query = _context.BoardGames
                 .Include(b => b.Category)
-                .Include(bg => bg.BoardGameImages)
-                .AsQueryable();
+                .Include(bg => bg.BoardGameImages);
 
             if (!string.IsNullOrEmpty(viewModel.SearchQuery))
             {
                 query = query.Where(b => b.Name.Contains(viewModel.SearchQuery));
             }
 
-            if (viewModel.CategoryID != null)
+            if (viewModel.CategoryID.HasValue)
             {
-                query = query.Where(b => b.CategoryID == viewModel.CategoryID);
+                query = query.Where(b => b.CategoryID == viewModel.CategoryID.Value);
             }
 
             if (viewModel.MinPrice.HasValue)
@@ -48,34 +47,26 @@ namespace BoardGamesStore.Controllers
             switch (viewModel.SortBy)
             {
                 case "Name":
-                    query = viewModel.SortOrder == "ASC"
-                        ? query.OrderBy(b => b.Name)
-                        : query.OrderByDescending(b => b.Name);
+                    query = viewModel.SortOrder == "ASC" ? query.OrderBy(b => b.Name) : query.OrderByDescending(b => b.Name);
                     break;
                 case "Price":
-                    query = viewModel.SortOrder == "ASC"
-                        ? query.OrderBy(b => b.Price)
-                        : query.OrderByDescending(b => b.Price);
+                    query = viewModel.SortOrder == "ASC" ? query.OrderBy(b => b.Price) : query.OrderByDescending(b => b.Price);
                     break;
                 default:
-                    query = viewModel.SortOrder == "ASC"
-                        ? query.OrderBy(b => b.CreatedAt)
-                        : query.OrderByDescending(b => b.CreatedAt);
+                    query = viewModel.SortOrder == "ASC" ? query.OrderBy(b => b.CreatedAt) : query.OrderByDescending(b => b.CreatedAt);
                     break;
             }
 
             viewModel.BoardGames = await query.ToListAsync();
-            viewModel.Categories = await _context.Categories.ToListAsync();
-
-            ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", viewModel.CategoryID);
-            ViewData["SortOptions"] = new SelectList(
+            viewModel.Categories = new SelectList(_context.Categories, "CategoryID", "CategoryName", viewModel.CategoryID);
+            viewModel.SortOptions = new SelectList(
                 new List<SelectListItem> {
                     new SelectListItem { Value = "Date", Text = "Date" },
                     new SelectListItem { Value = "Name", Text = "Name" },
                     new SelectListItem { Value = "Price", Text = "Price" }
                 }, "Value", "Text", viewModel.SortBy
             );
-            ViewData["SortOrderOptions"] = new SelectList(
+            viewModel.SortOrderOptions = new SelectList(
                 new List<SelectListItem> {
                     new SelectListItem { Value = "ASC", Text = "Ascending" },
                     new SelectListItem { Value = "DESC", Text = "Descending" },
@@ -139,21 +130,6 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var boardGames = await _context.BoardGames
-                .Include(b => b.Category)
-                .Include(bg => bg.BoardGameImages)
-                .ToListAsync();
-            return RedirectToAction(nameof(Index));
-        }
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
