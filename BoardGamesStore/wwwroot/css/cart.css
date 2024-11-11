@@ -9,3 +9,20 @@
 .fas.fa-shopping-cart {
     font-size: 1.2rem;
 }
+
+.cart-card {
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid lightsalmon;
+    text-decoration: none;
+    background-color: cornsilk;
+}
+
+.cart-card-img {
+    width: 150px;
+    height: 150px;
+}
+
+.cart-card:hover {
+    border: 1px solid chocolate;
+}
