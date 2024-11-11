@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization
+
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture.Name">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BoardGamesStore</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -24,18 +29,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">@Localizer["HomePage"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="BoardGames" asp-action="Index">Catalog</a>
+                            <a class="nav-link" asp-controller="BoardGames" asp-action="Index">@Localizer["CatalogPage"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">@Localizer["PrivacyPage"]</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Categories" asp-action="Manage">Categories</a>
+                                <a class="nav-link" asp-controller="Categories" asp-action="Manage">@Localizer["CategoriesPage"]</a>
                             </li>
                         }
                     </ul>
@@ -55,6 +60,23 @@
 
     <footer class="footer">
         <div class="container">&copy; 2024 - BoardGamesStore</div>
+
+        <div class="me-5">
+            <form asp-controller="Home" asp-action="SetLanguage" method="post" id="languageForm" class="d-inline">
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                <select name="culture" class="form-select" id="language" onchange="this.form.submit()">
+                    @if (CultureInfo.CurrentUICulture.Name == "en-US") {
+                        <option value="en-US" selected>English</option>
+                        <option value="uk-UA">Українська</option>
+                    }
+                    else if (CultureInfo.CurrentUICulture.Name == "uk-UA")
+                    {
+                        <option value="en-US">English</option>
+                        <option value="uk-UA" selected>Українська</option>
+                    }
+                </select>
+            </form>
+        </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

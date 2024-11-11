@@ -1,10 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "BoardGamesStore";
 }
 
 <div class="text-center">
     <h1>Хмельницький Національний Університет</h1>
-    <h2>Курсовий Проект</h2>
+    <h2>@Localizer["TermProject"]</h2>
     <h3>Хотич Микола, ІПЗ-22-1</h3>
     <p>
         <b>Тема курсового проекту:</b> Інтернет-магазину настільних ігор
