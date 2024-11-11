@@ -6,6 +6,7 @@ using BoardGamesStore.Models;
 using Microsoft.Data.SqlClient;
 using BoardGamesStore.ViewModels;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BoardGamesStore.Controllers
 {
@@ -95,12 +96,14 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BoardGameID,Name,Description,Price,StockQuantity,CreatedAt,NumberOfPlayers,GameTimeMinutes,SuggestedAge,CategoryID")] BoardGame boardGame, List<IFormFile> images)
@@ -130,6 +133,7 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -146,6 +150,7 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
@@ -194,6 +199,7 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -208,6 +214,7 @@ namespace BoardGamesStore.Controllers
             return View(boardGame);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

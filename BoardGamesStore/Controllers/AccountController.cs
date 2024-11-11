@@ -17,6 +17,13 @@ namespace BoardGamesStore.Controllers
         }
 
         [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
