@@ -1,6 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer;
+
+@{
+    ViewData["Title"] = Localizer["PrivacyPolicy"];
 }
-<h1>@ViewData["Title"]</h1>
+
+<h1>@Localizer["PrivacyPolicy"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
