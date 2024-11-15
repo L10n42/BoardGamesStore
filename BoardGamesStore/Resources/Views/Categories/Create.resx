@@ -120,4 +120,10 @@
   <data name="CreateCategory" xml:space="preserve">
     <value>Create category</value>
   </data>
+  <data name="CreateCategoryButton" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CancelCategoryButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>
