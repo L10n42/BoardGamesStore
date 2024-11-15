@@ -7,42 +7,47 @@ namespace BoardGamesStore.Models
     {
         public int BoardGameID { get; set; }
 
-        [Required(ErrorMessage = "Name is required.")]
-        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters.")]
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "NameIsRequired")]
+        [StringLength(100, ErrorMessage = "NameLimit")]
         public string Name { get; set; } = null!;
 
-        [Required(ErrorMessage = "Description is required.")]
-        [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]
+        [Display(Name = "Description")]
+        [Required(ErrorMessage = "DescriptionIsRequired")]
+        [StringLength(1000, ErrorMessage = "DescriptionLimit")]
         public string Description { get; set; } = null!;
 
-        [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive value.")]
+        [Display(Name = "Price")]
+        [Required(ErrorMessage = "PriceIsRequired")]
+        [Range(0, double.MaxValue, ErrorMessage = "PositivePrice")]
         public double Price { get; set; }
 
-        [Display(Name = "Stock quantity")]
-        [Range(0, int.MaxValue, ErrorMessage = "Stock quantity must be a positive value.")]
+        [Display(Name = "StockQuantity")]
+        [Required(ErrorMessage = "StockQuantityIsRequired")]
+        [Range(0, int.MaxValue, ErrorMessage = "PositiveStockQuantity")]
         public int StockQuantity { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [Display(Name = "Number of players")]
-        [Required(ErrorMessage = "Number of players is required.")]
-        [RegularExpression(@"^\d+(-\d+)?\+?$", ErrorMessage = "Enter a valid format for number of players (e.g., '2', '2-3', '2+').")]
+        [Display(Name = "NumberOfPlayers")]
+        [Required(ErrorMessage = "NumberOfPlayersIsRequired")]
+        [RegularExpression(@"^\d+(-\d+)?\+?$", ErrorMessage = "NumberOfPlayersInvalidFormat")]
         public string NumberOfPlayers { get; set; } = null!;
 
-        [Display(Name = "Game time (minutes)")]
-        [Required(ErrorMessage = "Game time is required.")]
-        [RegularExpression(@"^\d+(-\d+)?\+?$", ErrorMessage = "Enter a valid format for game time in minutes (e.g., '30', '30-60', '30+').")]
+        [Display(Name = "GameTime")]
+        [Required(ErrorMessage = "GameTimeIsRequired")]
+        [RegularExpression(@"^\d+(-\d+)?\+?$", ErrorMessage = "GameTimeInvalidFormat")]
         public string GameTimeMinutes { get; set; } = null!;
 
-        [Display(Name = "Suggested age")]
-        [Required(ErrorMessage = "Suggested age is required.")]
-        [RegularExpression(@"^\d+\+$", ErrorMessage = "Enter a valid age suggestion (e.g., '8+').")]
+        [Display(Name = "SuggestedAge")]
+        [Required(ErrorMessage = "SuggestedAgeIsRequired")]
+        [RegularExpression(@"^\d+\+$", ErrorMessage = "SuggestedAgeInvalidFormat")]
         public string SuggestedAge { get; set; } = null!;
 
 
         [Display(Name = "Category")]
-        [Range(1, int.MaxValue, ErrorMessage = "Choose category")]
+        [Range(1, int.MaxValue, ErrorMessage = "ChooseСategory")]
         public int? CategoryID { get; set; }
 
         [ForeignKey("CategoryID")]

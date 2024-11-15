@@ -1,6 +1,10 @@
 ﻿@model BoardGamesStore.ViewModels.LoginViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = Localizer["Login"];
 }
 
 <div class="container mt-5">
@@ -9,7 +13,7 @@
         <div class="col-md-4 mt-4">
 
             <div class="mb-5">
-                <h2 class="mb-4 text-center">Login</h2>
+                <h2 class="mb-4 text-center">@Localizer["Login"]</h2>
                 <hr/>
             </div>
 
@@ -33,7 +37,7 @@
                     <label asp-for="RememberMe" class="form-check-label"></label>
                 </div>
 
-                <button type="submit" class="w-100 btn btn-lg btn-primary mt-4">Login</button>
+                <button type="submit" class="w-100 btn btn-lg btn-primary mt-4">@Localizer["LoginButton"]</button>
             </form>
         </div>
 

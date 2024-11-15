@@ -1,10 +1,14 @@
 ﻿@model BoardGamesStore.Models.BoardGame
 
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = Localizer["CreateBoardGame"];
 }
 
-<h2 class="mb-4 mt-2">Create new Board Game</h2>
+<h2 class="mb-4 mt-2">@Localizer["CreateBoardGame"]</h2>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -46,19 +50,19 @@
     </div>
     <div class="form-floating mb-4">
         <select asp-for="CategoryID" class="form-control" placeholder=" " asp-items="ViewBag.Categories">
-            <option value="0">Not selected</option>
+            <option value="0">@Localizer["NotSelected"]</option>
         </select>
         <label asp-for="CategoryID"></label>
         <span asp-validation-for="CategoryID" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-4">
-        <label for="images" class="form-label">Зображення</label>
+        <label for="images" class="form-label">@Localizer["Images"]</label>
         <input type="file" class="form-control" name="images" multiple />
     </div>
 
-    <input type="submit" value="Зберегти" class="btn btn-primary mb-3" />
-    <a asp-action="Index" class="btn btn-secondary  mb-3">Скасувати</a>
+    <input type="submit" value="@Localizer["SaveButton"]" class="btn btn-primary mb-3" />
+    <a asp-action="Index" class="btn btn-secondary  mb-3">@Localizer["CancelButton"]</a>
 </form>
 
 @section Scripts {

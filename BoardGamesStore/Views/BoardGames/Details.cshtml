@@ -1,7 +1,10 @@
 ﻿@model BoardGamesStore.Models.BoardGame
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name;
 }
 
 <div class="container mt-4">
@@ -36,20 +39,20 @@
 
             <div class="row mt-5">
                 <div class="col-md-12">
-                    <h3>Description</h3>
+                    <h3>@Localizer["Description"]</h3>
                     <p><strong>@Model.Description</strong></p>
 
                     <table class="table table-bordered">
                         <tr>
-                            <th scope="row">Players</th>
+                            <th scope="row">@Html.DisplayNameFor(model => model.NumberOfPlayers)</th>
                             <td>@Model.NumberOfPlayers</td>
                         </tr>
                         <tr>
-                            <th scope="row">Playtime</th>
+                            <th scope="row">@Html.DisplayNameFor(model => model.GameTimeMinutes)</th>
                             <td>@Model.GameTimeMinutes</td>
                         </tr>
                         <tr>
-                            <th scope="row">Suggested Age</th>
+                            <th scope="row">@Html.DisplayNameFor(model => model.SuggestedAge)</th>
                             <td>@Model.SuggestedAge</td>
                         </tr>
                     </table>
@@ -64,13 +67,13 @@
             <p class="card-price">@Model.Price.ToString("0.00$")</p>
             <p>
                 <span class="badge @(Model.StockQuantity > 0 ? "bg-success" : "bg-danger")">
-                    @(Model.StockQuantity > 0 ? "In Stock" : "Out of Stock")
+                    @(Model.StockQuantity > 0 ? Localizer["InStock"] : Localizer["OutOfStock"])
                 </span>
             </p>
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary btn-lg" @(Model.StockQuantity == 0 ? "disabled" : "")>Купити</button>
-                <button class="btn btn-outline-primary btn-lg" @(Model.StockQuantity == 0 ? "disabled" : "")>Додати в кошик</button>
+                <button class="btn btn-primary btn-lg" @(Model.StockQuantity == 0 ? "disabled" : "")>@Localizer["Buy"]</button>
+                <button class="btn btn-outline-primary btn-lg" @(Model.StockQuantity == 0 ? "disabled" : "")>@Localizer["AddToCart"]</button>
             </div>
 
             @if (User.IsInRole("Admin"))
@@ -78,10 +81,10 @@
                 <br>
                 <div class="row g-2">
                     <div class="col">
-                        <a asp-action="Edit" asp-route-id="@Model?.BoardGameID" class="btn btn-warning w-100">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@Model?.BoardGameID" class="btn btn-warning w-100">@Localizer["Edit"]</a>
                     </div>
                     <div class="col">
-                        <a asp-action="Delete" asp-route-id="@Model?.BoardGameID" class="btn btn-danger w-100">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@Model?.BoardGameID" class="btn btn-danger w-100">@Localizer["Delete"]</a>
                     </div>
                 </div>
             }

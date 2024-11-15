@@ -1,6 +1,10 @@
 ﻿@model BoardGamesStore.ViewModels.RegisterViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = Localizer["Registration"];
 }
 
 <div class="container mt-5">
@@ -9,7 +13,7 @@
         <div class="col-md-4 mt-4">
 
             <div class="mb-5">
-                <h2 class="mb-4 text-center">Register</h2>
+                <h2 class="mb-4 text-center">@Localizer["Registration"]</h2>
                 <hr/>
             </div>
 
@@ -34,7 +38,7 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
-                <button type="submit" class="w-100 btn btn-lg btn-primary mt-4">Register</button>
+                <button type="submit" class="w-100 btn btn-lg btn-primary mt-4">@Localizer["RegisterButton"]</button>
             </form>
         </div>
 

@@ -6,9 +6,9 @@ namespace BoardGamesStore.Models
     {
         public int CategoryID { get; set; }
 
-        [Display(Name = "Category name")]
-        [Required(ErrorMessage = "Category name is required.")]
-        [StringLength(100, ErrorMessage = "Category name cannot exceed 100 characters.")]
+        [Display(Name = "CategoryName")]
+        [Required(ErrorMessage = "CategoryNameIsRequired")]
+        [StringLength(100, ErrorMessage = "CategoryNameLimit")]
         public string CategoryName { get; set; } = null!;
 
         public ICollection<BoardGame>? BoardGames { get; set; }

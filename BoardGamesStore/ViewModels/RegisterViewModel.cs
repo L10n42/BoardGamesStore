@@ -5,17 +5,20 @@ namespace BoardGamesStore.ViewModels
     public class RegisterViewModel
     {
 
-        [Required]
+        [Display(Name = "Email")]
+        [Required(ErrorMessage = "EmailIsRequired")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Display(Name = "Password")]
+        [Required(ErrorMessage = "PasswordIsRequired")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Display(Name = "ConfirmPassword")]
+        [Required(ErrorMessage = "ConfirmPasswordIsRequired")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "PasswordsDoNotMatch")]
         public string ConfirmPassword { get; set; }
 
     }

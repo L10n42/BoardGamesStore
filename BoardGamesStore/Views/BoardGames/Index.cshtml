@@ -1,14 +1,17 @@
 ﻿@model BoardGamesStore.ViewModels.BoardGamesViewModel
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Board Games";
+    ViewData["Title"] = Localizer["BoardGames"];
 }
 
 <form asp-action="Index" method="get">
     <div class="search-bar col-md-6 mx-auto mb-5 mt-5">
         <div class="input-group d-flex align-items-center">
             <i class="fas fa-search search-bar-icon"></i>
-            <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control search-input" placeholder="Search..." onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
+            <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control search-input" placeholder="@Localizer["SearchHint"]" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
         </div>
     </div>
 
@@ -16,16 +19,16 @@
         <div class="row g-3 mb-4 align-items-end justify-content-center text-center">
             <div class="col-lg-2 col-sm-4">
                 <select name="CategoryID" class="form-select" onchange="this.form.submit()" asp-items="@Model.Categories">
-                    <option value="">All Categories</option>
+                    <option value="">@Localizer["AllCategories"]</option>
                 </select>
             </div>
 
             <div class="col-lg-2 col-sm-4">
-                <input type="number" name="MinPrice" value="@Model.MinPrice" class="form-control" placeholder="Min Price" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
+                <input type="number" name="MinPrice" value="@Model.MinPrice" class="form-control" placeholder="@Localizer["MinPrice"]" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
             </div>
 
             <div class="col-lg-2 col-sm-4">
-                <input type="number" name="MaxPrice" value="@Model.MaxPrice" class="form-control" placeholder="Max Price" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
+                <input type="number" name="MaxPrice" value="@Model.MaxPrice" class="form-control" placeholder="@Localizer["MaxPrice"]" onkeyup="if(event.key === 'Enter'){ this.form.submit(); }">
             </div>
 
             <div class="col-lg-2 col-sm-4">
@@ -37,7 +40,7 @@
             </div>
 
             <div class="col-lg-2 col-sm-4">
-                <button type="submit" class="btn btn-primary w-100">Apply</button>
+                <button type="submit" class="btn btn-primary w-100">@Localizer["ApplyButton"]</button>
             </div>
         </div>
     </div>
@@ -60,7 +63,7 @@
                     </a>
                     <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@game.BoardGameID" method="post" style="text-align: center">
                         <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-                        <button type="submit" class="btn btn-primary btn-cart">Add to Cart</button>
+                        <button type="submit" class="btn btn-primary btn-cart">@Localizer["AddToCart"]</button>
                     </form>
                 </div>
             </div>

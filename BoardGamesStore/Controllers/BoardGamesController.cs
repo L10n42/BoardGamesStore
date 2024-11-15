@@ -7,16 +7,19 @@ using Microsoft.Data.SqlClient;
 using BoardGamesStore.ViewModels;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 namespace BoardGamesStore.Controllers
 {
     public class BoardGamesController : Controller
     {
         private readonly BoardGamesStoreContext _context;
+        private readonly IStringLocalizer<BoardGamesController> _localizer;
 
-        public BoardGamesController(BoardGamesStoreContext context)
+        public BoardGamesController(BoardGamesStoreContext context, IStringLocalizer<BoardGamesController> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index(BoardGamesViewModel viewModel)
@@ -62,15 +65,15 @@ namespace BoardGamesStore.Controllers
             viewModel.Categories = new SelectList(_context.Categories, "CategoryID", "CategoryName", viewModel.CategoryID);
             viewModel.SortOptions = new SelectList(
                 new List<SelectListItem> {
-                    new SelectListItem { Value = "Date", Text = "Date" },
-                    new SelectListItem { Value = "Name", Text = "Name" },
-                    new SelectListItem { Value = "Price", Text = "Price" }
+                    new SelectListItem { Value = "Date", Text = _localizer["Date"] },
+                    new SelectListItem { Value = "Name", Text = _localizer["Name"] },
+                    new SelectListItem { Value = "Price", Text = _localizer["Price"] }
                 }, "Value", "Text", viewModel.SortBy
             );
             viewModel.SortOrderOptions = new SelectList(
                 new List<SelectListItem> {
-                    new SelectListItem { Value = "ASC", Text = "Ascending" },
-                    new SelectListItem { Value = "DESC", Text = "Descending" },
+                    new SelectListItem { Value = "ASC", Text = _localizer["Ascending"] },
+                    new SelectListItem { Value = "DESC", Text = _localizer["Descending"] },
                 }, "Value", "Text", viewModel.SortOrder
             );
 

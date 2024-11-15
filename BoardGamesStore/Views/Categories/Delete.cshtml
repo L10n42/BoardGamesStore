@@ -1,10 +1,14 @@
 ﻿@model BoardGamesStore.Models.Category
 
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = Localizer["DeleteCategory"];
 }
 
-<h2 class="mt-5">Are you sure you want to delete this category?</h2>
+<h2 class="mt-5">@Localizer["DeleteCategoryMessage"]</h2>
 <hr />
 
 <dl class="row mt-5">
@@ -18,6 +22,6 @@
     
 <form asp-action="Delete" class="mb-4 mt-4">
     <input type="hidden" asp-for="CategoryID" />
-    <input type="submit" value="Delete" class="btn btn-danger me-3" />
-    <a asp-action="Manage" class="btn btn-secondary">Cancel</a>
+    <input type="submit" value="@Localizer["DeleteCategoryButton"]" class="btn btn-danger me-3" />
+    <a asp-action="Manage" class="btn btn-secondary">@Localizer["CancelCategoryButton"]</a>
 </form>

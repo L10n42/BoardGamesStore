@@ -1,20 +1,23 @@
 ﻿@model BoardGamesStore.ViewModels.CartViewModel
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = Localizer["Cart"];
 }
 
 <div class="d-flex justify-content-between align-items-center mt-5">
-    <h2>Cart</h2>
+    <h2>@Localizer["Cart"]</h2>
 
     <form asp-action="CheckoutAll" asp-controller="Cart" method="post">
-        <button type="submit" class="btn btn-primary">Замовити все</button>
+        <button type="submit" class="btn btn-primary">@Localizer["CheckoutAll"]</button>
     </form>
 </div>
 
 <div class="d-flex justify-content-between">
-    <p><strong>Total Items:</strong> @Model.TotalItems</p>
-    <p><strong>Total Price:</strong> @Model.TotalPrice.ToString("0.00$")</p>
+    <p><strong>@Localizer["TotalItems"]</strong> @Model.TotalItems</p>
+    <p><strong>@Localizer["TotalPrice"]</strong> @Model.TotalPrice.ToString("0.00$")</p>
 </div>
 
 <hr />
@@ -32,12 +35,12 @@
                     <div class="d-flex justify-content-between align-items-center flex-grow-1 p-3">
                         <div>
                             <h5 class="cart-title">@item.BoardGame.Name</h5>
-                            <p class="cart-price">Price: @item.BoardGame.Price.ToString("0.00$")</p>
+                            <p class="cart-price">@Localizer["Price"] @item.BoardGame.Price.ToString("0.00$")</p>
                         </div>
                     </div>
 
                     <form asp-action="Checkout" asp-controller="Cart" asp-route-id="@item.BoardGameID" method="post" class="position-absolute" style="top: 20px; right: 20px;">
-                        <button type="submit" class="btn btn-primary">Замовити</button>
+                        <button type="submit" class="btn btn-primary">@Localizer["Checkout"]</button>
                     </form>
 
                     <div class="position-absolute" style="bottom: 20px; right: 20px;">
