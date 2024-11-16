@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>Категорії</value>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Видалити користувача</value>
   </data>
-  <data name="AddCategoryButton" xml:space="preserve">
-    <value>Додати категорію</value>
+  <data name="DeleteUserMessage" xml:space="preserve">
+    <value>Ви впевнені, що хочете видалити цього користувача?</value>
   </data>
-  <data name="Actions" xml:space="preserve">
-    <value>Дії</value>
+  <data name="Username" xml:space="preserve">
+    <value>Ім'я користувача</value>
   </data>
-  <data name="EditButton" xml:space="preserve">
-    <value>Редагувати</value>
+  <data name="Email" xml:space="preserve">
+    <value>Електронна пошта</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Видалити</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Пошук</value>
-  </data>
-  <data name="SearchHint" xml:space="preserve">
-    <value>Пошук...</value>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Скасувати</value>
   </data>
 </root>

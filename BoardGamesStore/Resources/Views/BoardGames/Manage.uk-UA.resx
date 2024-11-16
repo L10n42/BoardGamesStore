@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>Категорії</value>
+  <data name="BoardGames" xml:space="preserve">
+    <value>Настільні ігри</value>
   </data>
-  <data name="AddCategoryButton" xml:space="preserve">
-    <value>Додати категорію</value>
+  <data name="AddBoardGameButton" xml:space="preserve">
+    <value>Додати настільну гру</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Дії</value>

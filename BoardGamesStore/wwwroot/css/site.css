@@ -12,8 +12,16 @@ html {
   }
 }
 
-.btn-primary:focus, .btn-outline-primary:focus, .btn-primary:active:focus, .btn-outline-primary:active:focus, .form-control:focus, .form-select:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem chocolate;
+.btn-primary:focus, .btn-primary:active:focus,
+.btn-outline-primary:focus, .btn-outline-primary:active:focus,
+.btn-danger:focus, .btn-danger:active:focus,
+.btn-outline-danger:focus, .btn-outline-danger:active:focus,
+.btn-warning:focus, .btn-warning:active:focus,
+.btn-outline-warning:focus, .btn-outline-warning:active:focus,
+.btn-secondary:focus, .btn-secondary:active:focus,
+.btn-outline-secondary:focus, .btn-outline-secondary:active:focus,
+.form-control:focus, .form-select:focus, .form-check-input:focus {
+    box-shadow: none;
 }
 
 .form-control, .form-control:focus, .form-control:active, .form-control:active:focus {
@@ -169,4 +177,12 @@ footer {
 .items-table td, .items-table th {
     padding: 8px 12px;
     vertical-align: middle;
+}
+
+.items-table tbody tr td {
+    border-right: 1px solid lightsalmon;
+}
+
+.items-table tbody tr td:last-child {
+    border-right: none;
 }

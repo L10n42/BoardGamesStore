@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>Категорії</value>
+  <data name="Users" xml:space="preserve">
+    <value>Користувачі</value>
   </data>
-  <data name="AddCategoryButton" xml:space="preserve">
-    <value>Додати категорію</value>
+  <data name="SearchHint" xml:space="preserve">
+    <value>Пошук...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Дії</value>
@@ -131,11 +134,5 @@
   </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Видалити</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Пошук</value>
-  </data>
-  <data name="SearchHint" xml:space="preserve">
-    <value>Пошук...</value>
   </data>
 </root>

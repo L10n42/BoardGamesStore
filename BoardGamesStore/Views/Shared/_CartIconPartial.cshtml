@@ -11,7 +11,10 @@
     <li class="nav-item ms-3 me-3">
         <a asp-action="Index" asp-controller="Cart" class="nav-link position-relative">
             <i class="fas fa-shopping-cart"></i>
-            <span class="cart-badge badge rounded-pill bg-danger position-absolute">@cartItemCount</span>
+            @if (cartItemCount > 0)
+            {
+                <span class="cart-badge badge rounded-pill bg-danger position-absolute">@cartItemCount</span>
+            }
         </a>
     </li>
 </ul>

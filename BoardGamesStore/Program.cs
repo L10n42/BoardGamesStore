@@ -10,9 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("BoardGamesStor
 
 builder.Services.AddDbContext<BoardGamesStoreContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<BoardGamesStoreContext>();
+    .AddEntityFrameworkStores<BoardGamesStoreContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

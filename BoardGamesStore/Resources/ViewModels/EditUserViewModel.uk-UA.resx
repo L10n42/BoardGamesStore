@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>Категорії</value>
+  <data name="Email" xml:space="preserve">
+    <value>Електронна пошта</value>
   </data>
-  <data name="AddCategoryButton" xml:space="preserve">
-    <value>Додати категорію</value>
+  <data name="Name" xml:space="preserve">
+    <value>Ім'я</value>
   </data>
-  <data name="Actions" xml:space="preserve">
-    <value>Дії</value>
+  <data name="EmailIsRequired" xml:space="preserve">
+    <value>Необхідно вказати електронну пошту.</value>
   </data>
-  <data name="EditButton" xml:space="preserve">
-    <value>Редагувати</value>
+  <data name="NameIsRequired" xml:space="preserve">
+    <value>Необхідно вказати ім'я.</value>
   </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Видалити</value>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Пошук</value>
-  </data>
-  <data name="SearchHint" xml:space="preserve">
-    <value>Пошук...</value>
+  <data name="RoleIsRequired" xml:space="preserve">
+    <value>Необхідно обрати роль.</value>
   </data>
 </root>

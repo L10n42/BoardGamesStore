@@ -16,9 +16,17 @@ namespace BoardGamesStore.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Manage()
+        public async Task<IActionResult> Manage(string? searchArg)
         {
-            return View(await _context.Categories.ToListAsync());
+            IQueryable<Category> query = _context.Categories;
+
+            if (!string.IsNullOrEmpty(searchArg))
+            {
+                query = query.Where(b => b.CategoryName.Contains(searchArg));
+            }
+
+            var categories = await query.ToListAsync();
+            return View(categories);
         }
 
         public IActionResult Create()

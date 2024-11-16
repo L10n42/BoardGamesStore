@@ -129,4 +129,13 @@
   <data name="CategoriesPage" xml:space="preserve">
     <value>Categories</value>
   </data>
+  <data name="ProductsPage" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="UserManagementPage" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="dfd" xml:space="preserve">
+    <value>fdf</value>
+  </data>
 </root>

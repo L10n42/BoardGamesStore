@@ -100,6 +100,21 @@ namespace BoardGamesStore.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Manage(string? searchArg)
+        {
+            IQueryable<BoardGame> query = _context.BoardGames.Include(b => b.Category);
+
+            if (!string.IsNullOrEmpty(searchArg))
+            {
+                query = query.Where(b => b.Name.Contains(searchArg) || b.Description.Contains(searchArg));
+            }
+
+            var boardGames = await query.ToListAsync();
+            return View(boardGames);
+        }
+        
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["Categories"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");

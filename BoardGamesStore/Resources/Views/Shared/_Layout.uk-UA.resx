@@ -129,4 +129,13 @@
   <data name="CategoriesPage" xml:space="preserve">
     <value>Категорії</value>
   </data>
+  <data name="ProductsPage" xml:space="preserve">
+    <value>Товари</value>
+  </data>
+  <data name="UserManagementPage" xml:space="preserve">
+    <value>Користувачі</value>
+  </data>
+  <data name="dfd" xml:space="preserve">
+    <value>dfd</value>
+  </data>
 </root>

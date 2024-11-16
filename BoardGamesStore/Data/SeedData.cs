@@ -20,9 +20,10 @@ namespace BoardGamesStore.Data
             var adminEmail = "admin@boardgames.com";
             var adminUser = new ApplicationUser
             {
-                UserName = adminEmail,
+                UserName = "admin@boardgames.com",
                 Email = adminEmail,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Name = "Admin"
             };
 
             var existingAdmin = await userManager.FindByEmailAsync(adminEmail);

@@ -10,6 +10,10 @@ namespace BoardGamesStore.ViewModels
         [EmailAddress]
         public string Email { get; set; }
 
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "NameIsRequired")]
+        public string Name { get; set; }
+
         [Display(Name = "Password")]
         [Required(ErrorMessage = "PasswordIsRequired")]
         [DataType(DataType.Password)]

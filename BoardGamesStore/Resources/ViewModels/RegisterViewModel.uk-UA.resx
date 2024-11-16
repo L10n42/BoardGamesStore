@@ -135,4 +135,13 @@
   <data name="ConfirmPasswordIsRequired" xml:space="preserve">
     <value>Потрібно підтвердити пароль.</value>
   </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Пароль і пароль підтвердження не збігаються.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="NameIsRequired" xml:space="preserve">
+    <value>Необхідно ввести ім'я.</value>
+  </data>
 </root>

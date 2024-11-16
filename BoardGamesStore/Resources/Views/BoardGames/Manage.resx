@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>Категорії</value>
+  <data name="BoardGames" xml:space="preserve">
+    <value>Board games</value>
   </data>
-  <data name="AddCategoryButton" xml:space="preserve">
-    <value>Додати категорію</value>
+  <data name="AddBoardGameButton" xml:space="preserve">
+    <value>Add board game</value>
   </data>
   <data name="Actions" xml:space="preserve">
-    <value>Дії</value>
+    <value>Actions</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Редагувати</value>
+    <value>Edit</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
-    <value>Видалити</value>
+    <value>Delete</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Пошук</value>
+    <value>Search</value>
   </data>
   <data name="SearchHint" xml:space="preserve">
-    <value>Пошук...</value>
+    <value>Search...</value>
   </data>
 </root>

@@ -132,4 +132,10 @@
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchHint" xml:space="preserve">
+    <value>Search...</value>
+  </data>
 </root>
