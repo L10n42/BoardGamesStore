@@ -1,15 +1,119 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@model BoardGamesStore.ViewModels.HomeViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "BoardGamesStore";
 }
 
-<div class="text-center">
-    <h1>Хмельницький Національний Університет</h1>
-    <h2>@Localizer["TermProject"]</h2>
-    <h3>Хотич Микола, ІПЗ-22-1</h3>
-    <p>
-        <b>Тема курсового проекту:</b> Інтернет-магазину настільних ігор
-    </p>
+<div class="container mt-5 mb-5 text-center">
+    <!-- Welcome Section -->
+    <div class="welcome-section py-4 shadow-lg mb-5">
+        <h1>@Localizer["WelcomeToOurBoardGameStore"]!</h1>
+        <p class="lead mt-3">@Localizer["DiscoverTheBestBoardGamesForAllAges"]</p>
+        <a asp-action="Index" asp-controller="BoardGames" class="btn btn-primary btn-lg btn-buy mt-4">@Localizer["ShopNow"]</a>
+    </div>
+
+    <!-- Recent Arrivals Section -->
+    @if (Model.RecentArrivals.Any())
+    {
+        <div class="mt-5">
+            <h2 class="mb-4 text-start">@Localizer["RecentArrivals"]</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                @foreach (var game in Model.RecentArrivals)
+                {
+                    <div class="col">
+                        <div class="card game-card h-100 shadow-sm">
+                            <a asp-controller="BoardGames" asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
+                                <img src="@game.BoardGameImages?.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="@game.Name">
+                            </a>
+                            <div class="card-body">
+                                <a asp-controller="BoardGames" asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
+                                    <h5 class="card-title">@game.Name</h5>
+                                </a>
+                                <p class="card-text">@game.Price.ToString("0.00$")</p>
+                                <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@game.BoardGameID" method="post" class="text-center">
+                                    <input type="hidden" name="boardGameId" value="@game.BoardGameID" />
+                                    <button type="submit" class="btn btn-outline-primary btn-sm mt-1">@Localizer["AddToCart"]</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Best Sellers Section -->
+    @if (Model.BestSellingGames.Any())
+    {
+        <div class="mt-5">
+            <h2 class="mb-4 text-start">@Localizer["BestSellers"]</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                @foreach (var game in Model.BestSellingGames)
+                {
+                    <div class="col">
+                        <div class="card game-card h-100 shadow-sm">
+                            <a asp-controller="BoardGames" asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
+                                <img src="@game.BoardGameImages?.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="@game.Name">
+                            </a>
+                            <div class="card-body">
+                                <a asp-controller="BoardGames" asp-action="Details" asp-route-id="@game.BoardGameID" class="text-decoration-none">
+                                    <h5 class="card-title">@game.Name</h5>
+                                </a>
+                                <p class="card-text">@game.Price.ToString("0.00$")</p>
+                                <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@game.BoardGameID" method="post" class="text-center">
+                                    <input type="hidden" name="boardGameId" value="@game.BoardGameID" />
+                                    <button type="submit" class="btn btn-outline-primary btn-sm mt-1">@Localizer["AddToCart"]</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>
+
+<style>
+    .welcome-section {
+        background-color: burlywood;
+        border-radius: 32px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .card-body {
+        padding: 15px;
+        text-align: left;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .card-text {
+        color: #28a745;
+        font-weight: 500;
+    }
+
+    .btn-outline-primary {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-width: 1px;
+        width: 50%;
+    }
+
+    .btn-outline-primary:hover {
+        border-color: chocolate;
+        background-color: chocolate;
+        color: white;
+    }
+
+    .btn-buy {
+        width: 180px;
+        border-radius: 12px;
+    }
+</style>

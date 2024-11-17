@@ -1,22 +1,44 @@
+using BoardGamesStore.Data;
 using BoardGamesStore.Models;
+using BoardGamesStore.ViewModels;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BoardGamesStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly BoardGamesStoreContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(BoardGamesStoreContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var recentArrivals = await _context.BoardGames
+                .Include(bg => bg.BoardGameImages)
+                .OrderByDescending(b => b.CreatedAt)
+                .Take(4)
+                .ToListAsync();
+
+            var bestSellingGames = await _context.BoardGames
+                .Include(bg => bg.BoardGameImages)
+                .Include(bg => bg.OrderDetails)
+                .OrderByDescending(b => b.OrderDetails.Sum(od => od.Quantity))
+                .Take(4)
+                .ToListAsync();
+
+            var viewModel = new HomeViewModel
+            {
+                RecentArrivals = recentArrivals,
+                BestSellingGames = bestSellingGames
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

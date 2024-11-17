@@ -120,4 +120,28 @@
   <data name="TermProject" xml:space="preserve">
     <value>Term project</value>
   </data>
+  <data name="WelcomeToOurBoardGameStore" xml:space="preserve">
+    <value>Welcome to Our Board Game Store</value>
+  </data>
+  <data name="DiscoverTheBestBoardGamesForAllAges" xml:space="preserve">
+    <value>Discover the best board games for all ages</value>
+  </data>
+  <data name="ShopNow" xml:space="preserve">
+    <value>Shop Now</value>
+  </data>
+  <data name="RecentArrivals" xml:space="preserve">
+    <value>Recent Arrivals</value>
+  </data>
+  <data name="BestSellers" xml:space="preserve">
+    <value>Best Sellers</value>
+  </data>
+  <data name="LowStockGames" xml:space="preserve">
+    <value>Low Stock Games</value>
+  </data>
+  <data name="LeftInStock" xml:space="preserve">
+    <value>Left in Stock</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Add to Cart</value>
+  </data>
 </root>

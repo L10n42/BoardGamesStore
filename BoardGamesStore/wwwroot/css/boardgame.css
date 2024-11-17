@@ -4,31 +4,19 @@
     box-shadow: 0px 4px 8px rgba(150, 75, 0, 0.16);
     text-decoration: none;
     background-color: cornsilk;
-    transition: box-shadow 0.3s ease, transform 0.2s;
+    border-radius: 16px 16px 8px 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .game-card img {
-    height: 182px;
+    height: 200px;
+    width: 100%;
     object-fit: cover;
-}
-
-.btn-cart {
-    margin-top: auto;
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-bottom: 16px;
-    border-radius: 8px;
-    width: 80%;
-    border: none;
-}
-
-.card-text {
-    color: #333;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    height: 3rem;
 }
 
 .card-title {
@@ -37,18 +25,6 @@
 
 .card-title:hover {
     text-decoration: underline;
-}
-
-.card-price {
-    font-size: 1.25rem;
-    color: forestgreen;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.game-card:hover {
-    box-shadow: 0px 4px 12px rgba(150, 75, 0, 0.32);
-    transform: scale(1.05);
 }
 
 .carousel-item img {

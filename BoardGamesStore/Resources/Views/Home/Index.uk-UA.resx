@@ -120,4 +120,28 @@
   <data name="TermProject" xml:space="preserve">
     <value>Курсовий проект</value>
   </data>
+  <data name="WelcomeToOurBoardGameStore" xml:space="preserve">
+    <value>Ласкаво просимо до нашого магазину настільних ігор</value>
+  </data>
+  <data name="DiscoverTheBestBoardGamesForAllAges" xml:space="preserve">
+    <value>Відкрийте для себе найкращі настільні ігри для всіх вікових категорій</value>
+  </data>
+  <data name="ShopNow" xml:space="preserve">
+    <value>Купити зараз</value>
+  </data>
+  <data name="RecentArrivals" xml:space="preserve">
+    <value>Нові надходження</value>
+  </data>
+  <data name="BestSellers" xml:space="preserve">
+    <value>Хіти продажу</value>
+  </data>
+  <data name="LowStockGames" xml:space="preserve">
+    <value>Ігри з низьким запасом</value>
+  </data>
+  <data name="LeftInStock" xml:space="preserve">
+    <value>Залишилось на складі</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Додати в кошик</value>
+  </data>
 </root>
