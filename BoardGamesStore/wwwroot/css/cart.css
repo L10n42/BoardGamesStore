@@ -10,19 +10,27 @@
     font-size: 1.2rem;
 }
 
-.cart-card {
-    border-radius: 15px;
-    overflow: hidden;
-    border: 1px solid lightsalmon;
-    text-decoration: none;
+
+.cart-item {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
     background-color: cornsilk;
 }
 
-.cart-card-img {
-    width: 150px;
-    height: 150px;
+.cart-item:hover {
+    border: 1px solid burlywood;
 }
 
-.cart-card:hover {
-    border: 1px solid chocolate;
+.cart-item-image img {
+    object-fit: cover;
+    border-radius: 11px;
+    height: 80px;
+    width: auto;
+}
+
+.cart-summary {
+    background-color: burlywood;
+    color: #333;
+    font-weight: 500;
+    border-radius: 8px;
 }

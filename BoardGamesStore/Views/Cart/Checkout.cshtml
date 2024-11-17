@@ -1,0 +1,133 @@
+﻿@model BoardGamesStore.ViewModels.CheckoutViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Checkout"];
+}
+
+<h2 class="text-center mt-5">@Localizer["Checkout"]</h2>
+
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <form asp-action="Checkout" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- First Name -->
+                <div class="form-floating mb-3">
+                    <input asp-for="FirstName" class="form-control" placeholder=" " />
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-floating mb-3">
+                    <input asp-for="LastName" class="form-control" placeholder=" " />
+                    <label asp-for="LastName" class="form-label"></label>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-floating mb-3">
+                    <input asp-for="PhoneNumber" class="form-control" placeholder=" " />
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" placeholder=" " />
+                    <label asp-for="Email" class="form-label"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <!-- Delivery Option -->
+                <div class="form-floating mb-3">
+                    <select asp-for="DeliveryOption" class="form-select" asp-items="@Model.AvailableDeliveryOptions"></select>
+                    <label asp-for="DeliveryOption"></label>
+                    <span asp-validation-for="DeliveryOption" class="text-danger"></span>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="form-floating mb-3">
+                    <select asp-for="PaymentMethod" class="form-select" asp-items="@Model.AvailablePaymentMethods"></select>
+                    <label asp-for="PaymentMethod"></label>
+                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                </div>
+
+                <!-- Card Details (Visible only if Credit Card is selected) -->
+                <div id="card-details" style="display: block;">
+                    <div class="form-floating mb-3">
+                        <input asp-for="CardNumber" class="form-control" placeholder=" " />
+                        <label asp-for="CardNumber" class="form-label"></label>
+                        <span asp-validation-for="CardNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <!-- Expiry Date -->
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="ExpiryDate" class="form-control" placeholder=" " />
+                                <label asp-for="ExpiryDate" class="form-label"></label>
+                                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- CVV -->
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="CVV" class="form-control" placeholder=" " />
+                                <label asp-for="CVV" class="form-label"></label>
+                                <span asp-validation-for="CVV" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <h4 class="mt-4">@Localizer["OrderSummary"]</h4>
+                <ul class="list-group mb-3">
+                    @foreach (var item in Model.Items)
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>@item.BoardGame.Name x @item.Quantity</span>
+                            <span>@item.BoardGame.Price.ToString("0.00 $")</span>
+                        </li>
+                    }
+                </ul>
+
+                <p><strong>@Localizer["Total"]</strong> @Model.TotalAmount.ToString("0.00 $")</p>
+
+                <!-- Order Button -->
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg px-4">@Localizer["OrderButton"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .list-group-item {
+        background-color: antiquewhite;
+    }
+</style>
+
+<script>
+    document.getElementById("PaymentMethod").addEventListener("change", function () {
+        var cardDetails = document.getElementById("card-details");
+        if (this.value === "Credit Card") {
+            cardDetails.style.display = "block";
+        } else {
+            cardDetails.style.display = "none";
+        }
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

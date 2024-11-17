@@ -8,10 +8,20 @@ namespace BoardGamesStore.Models
 
         public DateTime OrderDate { get; set; }
 
-        public decimal TotalAmount { get; set; }
+        public double TotalAmount { get; set; }
 
         public string OrderStatus { get; set; } = null!;
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+
+        public string DeliveryOption { get; set; }
+        public string PaymentMethod { get; set; }
+
+        public string CardNumber { get; set; }
+        public string ExpiryDate { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
 

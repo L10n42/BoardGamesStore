@@ -117,28 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cart" xml:space="preserve">
-    <value>Кошик</value>
+  <data name="Standard Delivery" xml:space="preserve">
+    <value>Стандартна доставка</value>
   </data>
-  <data name="CheckoutAll" xml:space="preserve">
-    <value>Замовити все</value>
+  <data name="Express Delivery" xml:space="preserve">
+    <value>Експрес-доставка</value>
   </data>
-  <data name="Checkout" xml:space="preserve">
-    <value>Замовити</value>
+  <data name="Credit Card" xml:space="preserve">
+    <value>Кредитна картка</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Ціна:</value>
+  <data name="Cash on Delivery" xml:space="preserve">
+    <value>Накладений платіж</value>
   </data>
-  <data name="TotalItems" xml:space="preserve">
-    <value>Всього товарів:</value>
+  <data name="CardNumberIsRequired" xml:space="preserve">
+    <value>Необхідно вказати номер картки.</value>
   </data>
-  <data name="TotalPrice" xml:space="preserve">
-    <value>Загальна ціна:</value>
+  <data name="ExpiryDateIsRequired" xml:space="preserve">
+    <value>Необхідно вказати термін придатності.</value>
   </data>
-  <data name="ItemPriceSum" xml:space="preserve">
-    <value>Сума:</value>
-  </data>
-  <data name="EmptyCart" xml:space="preserve">
-    <value>Ваш кошик порожній!</value>
+  <data name="CVVIsRequired" xml:space="preserve">
+    <value>Необхідно вказати CVV.</value>
   </data>
 </root>

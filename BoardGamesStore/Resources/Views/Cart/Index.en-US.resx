@@ -135,4 +135,10 @@
   <data name="TotalPrice" xml:space="preserve">
     <value>Total Price:</value>
   </data>
+  <data name="ItemPriceSum" xml:space="preserve">
+    <value>Sum:</value>
+  </data>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>Your cart is empty!</value>
+  </data>
 </root>

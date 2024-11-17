@@ -1,0 +1,14 @@
+﻿@model int
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["OrderConfirmation"];
+}
+
+<div class="text-center mt-5">
+    <h2>@Localizer["ThankYouForYourOrder"]</h2>
+    <p>@Localizer["YourOrderNumberIs"] <strong>@Model</strong>.</p>
+    <a asp-action="Index" asp-controller="BoardGames" class="btn btn-primary mt-3">@Localizer["ContinueShopping"]</a>
+</div>
