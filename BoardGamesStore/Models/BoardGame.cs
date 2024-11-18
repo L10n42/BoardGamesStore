@@ -59,5 +59,7 @@ namespace BoardGamesStore.Models
         public ICollection<CartBoardGame>? CartBoardGames { get; set; }
 
         public ICollection<BoardGameImage>? BoardGameImages { get; set; }
+
+        public ICollection<Review>? Reviews { get; set; }
     }
 }
