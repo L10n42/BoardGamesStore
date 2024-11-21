@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TermProject" xml:space="preserve">
-    <value>Term project</value>
-  </data>
   <data name="WelcomeToOurBoardGameStore" xml:space="preserve">
     <value>Welcome to Our Board Game Store</value>
   </data>
@@ -134,12 +131,6 @@
   </data>
   <data name="BestSellers" xml:space="preserve">
     <value>Best Sellers</value>
-  </data>
-  <data name="LowStockGames" xml:space="preserve">
-    <value>Low Stock Games</value>
-  </data>
-  <data name="LeftInStock" xml:space="preserve">
-    <value>Left in Stock</value>
   </data>
   <data name="AddToCart" xml:space="preserve">
     <value>Add to Cart</value>

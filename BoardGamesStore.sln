@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGamesStore", "BoardGamesStore\BoardGamesStore.csproj", "{F8B16749-075F-4F79-9EB3-D3E343DCE9C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesStore", "BoardGamesStore\BoardGamesStore.csproj", "{F8B16749-075F-4F79-9EB3-D3E343DCE9C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGamesStore.Tests", "BoardGamesStore.Tests\BoardGamesStore.Tests.csproj", "{52D93C36-41DF-45CC-99BD-DF6BFCD8AE23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F8B16749-075F-4F79-9EB3-D3E343DCE9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B16749-075F-4F79-9EB3-D3E343DCE9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B16749-075F-4F79-9EB3-D3E343DCE9C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52D93C36-41DF-45CC-99BD-DF6BFCD8AE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52D93C36-41DF-45CC-99BD-DF6BFCD8AE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52D93C36-41DF-45CC-99BD-DF6BFCD8AE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52D93C36-41DF-45CC-99BD-DF6BFCD8AE23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

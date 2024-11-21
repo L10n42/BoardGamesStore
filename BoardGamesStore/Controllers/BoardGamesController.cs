@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BoardGamesStore.Data;
 using BoardGamesStore.Models;
-using Microsoft.Data.SqlClient;
 using BoardGamesStore.ViewModels;
-using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 
@@ -48,36 +46,59 @@ namespace BoardGamesStore.Controllers
                 query = query.Where(b => b.Price <= viewModel.MaxPrice.Value);
             }
 
-            switch (viewModel.SortBy)
-            {
-                case "Name":
-                    query = viewModel.SortOrder == "ASC" ? query.OrderBy(b => b.Name) : query.OrderByDescending(b => b.Name);
-                    break;
-                case "Price":
-                    query = viewModel.SortOrder == "ASC" ? query.OrderBy(b => b.Price) : query.OrderByDescending(b => b.Price);
-                    break;
-                default:
-                    query = viewModel.SortOrder == "ASC" ? query.OrderBy(b => b.CreatedAt) : query.OrderByDescending(b => b.CreatedAt);
-                    break;
-            }
+            query = ApplySorting(query, viewModel.SortBy, viewModel.SortOrder);
 
             viewModel.BoardGames = await query.ToListAsync();
-            viewModel.Categories = new SelectList(_context.Categories, "CategoryID", "CategoryName", viewModel.CategoryID);
-            viewModel.SortOptions = new SelectList(
-                new List<SelectListItem> {
+            viewModel.Categories = GetCategorySelectList(viewModel.CategoryID);
+            viewModel.SortOptions = GetSortOptions(viewModel.SortBy);
+            viewModel.SortOrderOptions = GetSortOrderOptions(viewModel.SortOrder);
+
+            return View(viewModel);
+        }
+
+        private IQueryable<BoardGame> ApplySorting(IQueryable<BoardGame> query, string sortBy, string sortOrder)
+        {
+            return sortBy switch
+            {
+                "Name" => sortOrder == "ASC" ? query.OrderBy(b => b.Name) : query.OrderByDescending(b => b.Name),
+                "Price" => sortOrder == "ASC" ? query.OrderBy(b => b.Price) : query.OrderByDescending(b => b.Price),
+                _ => sortOrder == "ASC" ? query.OrderBy(b => b.CreatedAt) : query.OrderByDescending(b => b.CreatedAt),
+            };
+        }
+
+        private SelectList GetCategorySelectList(int? selectedCategoryId)
+        {
+            return new SelectList(_context.Categories, "CategoryID", "CategoryName", selectedCategoryId);
+        }
+
+        private SelectList GetSortOptions(string selectedSortBy)
+        {
+            return new SelectList(
+                new List<SelectListItem>
+                {
                     new SelectListItem { Value = "Date", Text = _localizer["Date"] },
                     new SelectListItem { Value = "Name", Text = _localizer["Name"] },
                     new SelectListItem { Value = "Price", Text = _localizer["Price"] }
-                }, "Value", "Text", viewModel.SortBy
+                },
+                "Value",
+                "Text",
+                selectedSortBy
             );
-            viewModel.SortOrderOptions = new SelectList(
-                new List<SelectListItem> {
-                    new SelectListItem { Value = "ASC", Text = _localizer["Ascending"] },
-                    new SelectListItem { Value = "DESC", Text = _localizer["Descending"] },
-                }, "Value", "Text", viewModel.SortOrder
-            );
+        }
 
-            return View(viewModel);
+
+        private SelectList GetSortOrderOptions(string selectedSortOrder)
+        {
+            return new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "ASC", Text = _localizer["Ascending"] },
+                    new SelectListItem { Value = "DESC", Text = _localizer["Descending"] }
+                },
+                "Value",
+                "Text",
+                selectedSortOrder
+            );
         }
 
         public async Task<IActionResult> Details(int? id)
